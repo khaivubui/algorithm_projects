@@ -45,11 +45,11 @@ class BinaryMinHeap
     child_indices = self.child_indices(len, parent_idx)
 
     until child_indices.empty? ||
-          (prc.call(child_indices[0], array[parent_idx]) == 1 &&
-           prc.call(child_indices[1], array[parent_idx]) == 1)
+          (prc.call(array[parent_idx], array[child_indices[0]]) == -1 &&
+           prc.call(array[parent_idx], array[child_indices[1]]) == -1)
 
-      case prc.call(array[child_indices[0]], array[child_indices[1]])
-      when -1
+      if !child_indices[1] ||
+         prc.call(array[child_indices[0]], array[child_indices[1]]) == -1
         array[parent_idx], array[child_indices[0]] =
           array[child_indices[0]], array[parent_idx]
         parent_idx = child_indices[0]
@@ -58,6 +58,7 @@ class BinaryMinHeap
           array[child_indices[1]], array[parent_idx]
         parent_idx = child_indices[1]
       end
+
       child_indices = self.child_indices(len, parent_idx)
     end
 
