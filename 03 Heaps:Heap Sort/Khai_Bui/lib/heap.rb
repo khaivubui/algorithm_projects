@@ -13,6 +13,10 @@ class BinaryMinHeap
   end
 
   def extract
+    @store[0], @store[-1] = @store[-1], @store[0]
+    popped = @store.pop
+    BinaryMinHeap.heapify_down(@store, 0, &@prc)
+    popped
   end
 
   def peek
@@ -20,9 +24,11 @@ class BinaryMinHeap
   end
 
   def push(val)
+    @store.push(val)
+    BinaryMinHeap.heapify_up(@store, @store.length - 1, &@prc)
   end
 
-  public
+  # class methods
 
   def self.child_indices(len, parent_index)
     result = []
@@ -44,9 +50,10 @@ class BinaryMinHeap
     prc ||= Proc.new { |x, y| x <=> y }
     child_indices = self.child_indices(len, parent_idx)
 
-    until child_indices.empty? ||
-          (prc.call(array[parent_idx], array[child_indices[0]]) == -1 &&
-           prc.call(array[parent_idx], array[child_indices[1]]) == -1)
+    while (child_indices[0] &&
+           prc.call(array[parent_idx], array[child_indices[0]]) == 1) ||
+          (child_indices[1] &&
+           prc.call(array[parent_idx], array[child_indices[1]]) == 1)
 
       if !child_indices[1] ||
          prc.call(array[child_indices[0]], array[child_indices[1]]) == -1
