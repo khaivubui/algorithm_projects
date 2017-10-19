@@ -79,9 +79,11 @@ class BinaryMinHeap
     parent_idx = BinaryMinHeap.parent_index(child_idx)
 
     until child_idx == 0 || prc.call(array[parent_idx], array[child_idx]) == -1
-      parent_idx = BinaryMinHeap.parent_index(child_idx)
       array[child_idx], array[parent_idx] = array[parent_idx], array[child_idx]
       child_idx = parent_idx
+      unless child_idx == 0
+        parent_idx = BinaryMinHeap.parent_index(child_idx)
+      end
     end
     array
   end
