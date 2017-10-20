@@ -1,3 +1,5 @@
+require 'byebug'
+
 class QuickSort
   # Quick sort has average case time complexity O(nlogn), but worst
   # case O(n**2).
@@ -15,12 +17,35 @@ class QuickSort
   def self.sort2!(array, start = 0, length = array.length, &prc)
     prc ||= Proc.new { |x, y| x <=> y }
 
+    if length > 1
+      new_pivot_index = self.partition(array, start, length, &prc)
+
+      # byebug
+
+      self.sort2!(
+        array,
+        start,
+        new_pivot_index - start,
+        &prc
+      )
+
+      self.sort2!(
+        array,
+        new_pivot_index + 1,
+        length - new_pivot_index - 1,
+        &prc
+      )
+    end
+    array
   end
 
   def self.partition(array, start, length, &prc)
     prc ||= Proc.new { |x, y| x <=> y }
+
     pivot = array[start]
     new_pivot_index = start
+
+    puts "sorting from index #{start} to index #{start + length - 1}"
 
     (start + 1..start + length - 1).each do |i|
       if prc.call(pivot, array[i]) == 1
