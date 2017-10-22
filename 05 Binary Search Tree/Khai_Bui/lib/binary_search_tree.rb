@@ -43,6 +43,15 @@ class BinarySearchTree
   end
 
   def delete(value)
+    node_to_delete = find(value)
+
+    if !node_to_delete.left && !node_to_delete.right
+      return @root = nil if node_to_delete == @root
+      node_to_delete.parent.send(
+        "#{node_to_delete.parent_path}=", nil
+      )
+    end
+
     
   end
 
