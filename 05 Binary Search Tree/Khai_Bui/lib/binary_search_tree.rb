@@ -4,7 +4,10 @@ require 'bst_node'
 # to methods as you see fit, or to create helper methods.
 
 class BinarySearchTree
+  attr_reader :root
+
   def initialize
+    @root = nil
   end
 
   def insert(value)
@@ -28,7 +31,6 @@ class BinarySearchTree
 
   def in_order_traversal(tree_node = @root, arr = [])
   end
-
 
   private
   # optional helper methods go here:
