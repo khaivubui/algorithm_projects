@@ -19,12 +19,11 @@ class BinarySearchTree
 
       case value <=> parent_node.value
       when -1, 0
-        current_node = parent_node.left
         parent_path = 'left'
       when 1
-        current_node = parent_node.right
         parent_path = 'right'
       end
+      current_node = parent_node.send(parent_path)
     end
 
     parent_node.send("#{parent_path}=", BSTNode.new(value))
