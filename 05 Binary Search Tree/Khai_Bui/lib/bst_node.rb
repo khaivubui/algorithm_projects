@@ -30,6 +30,13 @@ class BSTNode
     end
   end
 
+  def children_count
+    children_count = 0
+    children_count += 1 if @left
+    children_count += 1 if @right
+    children_count
+  end
+
   # def <=>(other_node)
   #   @value <=> other_node.value
   # end

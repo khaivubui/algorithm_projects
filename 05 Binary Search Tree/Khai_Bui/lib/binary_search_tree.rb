@@ -45,14 +45,15 @@ class BinarySearchTree
   def delete(value)
     node_to_delete = find(value)
 
-    if !node_to_delete.left && !node_to_delete.right
+    case node_to_delete.children_count
+    when 0
       return @root = nil if node_to_delete == @root
       node_to_delete.parent.send(
         "#{node_to_delete.parent_path}=", nil
       )
+
     end
 
-    
   end
 
   # helper method for #delete:
