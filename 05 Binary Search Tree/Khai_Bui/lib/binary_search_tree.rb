@@ -31,7 +31,7 @@ class BinarySearchTree
 
   def find(value, tree_node = @root)
     return tree_node if tree_node.value == value
-    
+
     case value <=> tree_node.value
     when -1, 0
       return nil unless tree_node.left
@@ -43,10 +43,15 @@ class BinarySearchTree
   end
 
   def delete(value)
+    
   end
 
   # helper method for #delete:
   def maximum(tree_node = @root)
+    while tree_node.right
+      tree_node = tree_node.right
+    end
+    tree_node
   end
 
   def depth(tree_node = @root)
