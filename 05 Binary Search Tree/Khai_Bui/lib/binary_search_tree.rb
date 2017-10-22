@@ -30,6 +30,16 @@ class BinarySearchTree
   end
 
   def find(value, tree_node = @root)
+    return tree_node if tree_node.value == value
+    
+    case value <=> tree_node.value
+    when -1, 0
+      return nil unless tree_node.left
+      find(value, tree_node.left)
+    when 1
+      return nil unless tree_node.right
+      find(value, tree_node.right)
+    end
   end
 
   def delete(value)
