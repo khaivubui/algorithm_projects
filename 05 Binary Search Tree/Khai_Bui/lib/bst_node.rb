@@ -30,11 +30,15 @@ class BSTNode
     end
   end
 
+  def children
+    children = []
+    children << @left if @left
+    children << @right if @right
+    children
+  end
+
   def children_count
-    children_count = 0
-    children_count += 1 if @left
-    children_count += 1 if @right
-    children_count
+    children.length
   end
 
   def first_child
