@@ -80,6 +80,16 @@ class BinarySearchTree
   end
 
   def depth(tree_node = @root)
+    depth = 0
+    depth += 1 unless tree_node.children.empty?
+
+    children_depths = []
+    tree_node.children.each do |child|
+      children_depths << depth(child)
+    end
+
+    depth += children_depths.max unless children_depths.empty?
+    depth
   end
 
   def is_balanced?(tree_node = @root)
