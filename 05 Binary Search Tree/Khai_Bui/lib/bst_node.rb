@@ -37,6 +37,12 @@ class BSTNode
     children_count
   end
 
+  def first_child
+    return @left if @left
+    return @right if @right
+    nil
+  end
+
   # def <=>(other_node)
   #   @value <=> other_node.value
   # end

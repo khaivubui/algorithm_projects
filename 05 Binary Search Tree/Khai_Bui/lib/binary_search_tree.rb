@@ -51,7 +51,10 @@ class BinarySearchTree
       node_to_delete.parent.send(
         "#{node_to_delete.parent_path}=", nil
       )
-
+    when 1
+      node_to_delete.parent.send(
+        "#{node_to_delete.parent_path}=", node_to_delete.first_child
+      )
     end
 
   end
