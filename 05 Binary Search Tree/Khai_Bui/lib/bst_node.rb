@@ -1,6 +1,6 @@
 class BSTNode
   attr_reader :value, :left, :right
-  attr_accessor :parent
+  attr_accessor :parent, :tree
   # include Comparable
 
   def initialize(value)

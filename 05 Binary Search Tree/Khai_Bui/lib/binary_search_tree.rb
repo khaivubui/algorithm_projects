@@ -11,7 +11,10 @@ class BinarySearchTree
   end
 
   def insert(value)
-    return @root = BSTNode.new(value) unless @root
+    unless @root
+      @root = BSTNode.new(value)
+      return @root.tree = self
+    end
 
     current_node = @root
     while current_node
