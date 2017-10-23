@@ -55,6 +55,18 @@ class BinarySearchTree
       node_to_delete.parent.send(
         "#{node_to_delete.parent_path}=", node_to_delete.first_child
       )
+    when 2
+      replacement = maximum(node_to_delete.left)
+      replacement_old_parent = replacement.parent
+      replacement_old_child = replacement.first_child
+      
+      node_to_delete.parent.send(
+        "#{node_to_delete.parent_path}=", node_to_delete.first_child
+      )
+      replacement.left = node_to_delete.left
+      replacement.right = node_to_delete.right
+
+      replacement_old_parent.right = replacement_old_child
     end
 
   end
