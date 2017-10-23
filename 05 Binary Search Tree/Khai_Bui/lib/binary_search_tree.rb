@@ -81,14 +81,15 @@ class BinarySearchTree
 
   def depth(tree_node = @root)
     depth = 0
-    depth += 1 unless tree_node.children.empty?
+    unless tree_node.children.empty?
+      depth += 1
+      children_depths = []
+      tree_node.children.each do |child|
+        children_depths << depth(child)
+      end
 
-    children_depths = []
-    tree_node.children.each do |child|
-      children_depths << depth(child)
+      depth += children_depths.max
     end
-
-    depth += children_depths.max unless children_depths.empty?
     depth
   end
 
