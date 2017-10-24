@@ -11,5 +11,17 @@ require_relative 'graph'
 require_relative 'topological_sort'
 
 def install_order(arr)
-  
+  vertices_hash = {}
+  arr.each do |tuple|
+    tuple.each do |file|
+      unless vertices_hash[file]
+        vertices_hash[file] = Vertex.new(file)
+      end
+    end
+
+    Edge.new(vertices_hash[tuple[1]], vertices_hash[tuple[0]])
+  end
+
+  no_dependencies = (0..9).to_a - vertices_hash.keys
+  topological_sort(vertices_hash.values).map(&:value) + no_dependencies
 end
