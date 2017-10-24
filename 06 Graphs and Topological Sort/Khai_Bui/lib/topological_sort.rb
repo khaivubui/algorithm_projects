@@ -22,5 +22,6 @@ def topological_sort(vertices)
     end
   end
 
+  return [] if sorted.length < vertices.length
   sorted
 end
