@@ -6,6 +6,14 @@ class DynamicProgramming
       1 => 1,
       2 => 2
     }
+
+    @frog_cache_top_down = [
+      [],
+      [[1]],
+      [[1, 1], [2]],
+      [[1, 1, 1], [1, 2], [2, 1], [3]],
+      # [[1, 1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 2], [1, 3], [3, 1]]
+    ]
   end
 
   def blair_nums(n)
@@ -35,7 +43,7 @@ class DynamicProgramming
     ]
 
     (4..n).each do |num|
-      @frog_cache[num] = @frog_cache[0..num].reduce(&:+)
+      @frog_cache[num] = @frog_cache[0...num].reduce(&:+)
         .reject { |sub_arr| num - sub_arr.reduce(&:+) > 3 }
         .map { |sub_arr| sub_arr + [num - sub_arr.reduce(&:+)] }
     end
@@ -44,11 +52,16 @@ class DynamicProgramming
   end
 
   def frog_hops_top_down(n)
-
+    frog_hops_top_down_helper(n)
   end
 
   def frog_hops_top_down_helper(n)
-
+    return @frog_cache_top_down[n] if @frog_cache_top_down[n]
+    @frog_cache_top_down[n] = (0...n).map { |num| frog_hops_top_down(num) }
+      .reduce(&:+)
+      .reject { |sub_arr| n - sub_arr.reduce(&:+) > 3 }
+      .map { |sub_arr| sub_arr + [n - sub_arr.reduce(&:+)] }
+    @frog_cache_top_down[n]
   end
 
   def super_frog_hops(n, k)
