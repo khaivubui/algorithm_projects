@@ -21,7 +21,8 @@ class DynamicProgramming
   end
 
   def frog_hops_bottom_up(n)
-
+    frog_cache_builder(n)
+    @frog_cache[n]
   end
 
   def frog_cache_builder(n)
@@ -34,9 +35,9 @@ class DynamicProgramming
     ]
 
     (4..n).each do |num|
-      @frog_cache[num] = @frog_cache[0..num].reduce(&:+).map do |sub_arr|
-        sub_arr + [num - sub_arr.reduce(&:+)]
-      end
+      @frog_cache[num] = @frog_cache[0..num].reduce(&:+)
+        .reject { |sub_arr| num - sub_arr.reduce(&:+) > 3 }
+        .map { |sub_arr| sub_arr + [num - sub_arr.reduce(&:+)] }
     end
 
     @frog_cache
