@@ -25,7 +25,21 @@ class DynamicProgramming
   end
 
   def frog_cache_builder(n)
+    @frog_cache = [
+      [],
+      [[1]],
+      [[1, 1], [2]],
+      [[1, 1, 1], [1, 2], [2, 1], [3]],
+      # [[1, 1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 2], [1, 3], [3, 1]]
+    ]
 
+    (4..n).each do |num|
+      @frog_cache[num] = @frog_cache[0..num].reduce(&:+).map do |sub_arr|
+        sub_arr + [num - sub_arr.reduce(&:+)]
+      end
+    end
+
+    @frog_cache
   end
 
   def frog_hops_top_down(n)
